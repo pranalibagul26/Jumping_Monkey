@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		*{
+			padding: 0px;
+			margin: 0px;
+
+		}
+		.game-cont{
+			height: 600px;
+			width: 1400px;
+/*			border: 2px solid black;*/
+			background-image: url("F:/Q spider/Web Technology/JavaScript/Jumping_Monkey/birds.gif");
+			background-size: 30%;
+			background-repeat: repeat-x;
+		}
+		.monkey{
+			height: 70px;
+			width: 50px;
+			position: relative;
+			top: 90%;
+			background-image: url("F:/Q spider/Web Technology/JavaScript/Jumping_Monkey/monkey-png-26145.png");
+			background-position: center;
+			background-size: cover;
+/*			border: 2px solid black;*/
+		}
+		.jump{
+			animation: jump 0.5s ease-in-out 1;
+		}
+		@keyframes jump{
+			50%{
+				top:100px;
+			}
+		}
+		.block{
+			margin: 10px;
+			width: 100px;
+			height: 100px;
+			background-image: url("F:/Q spider/Web Technology/JavaScript/Jumping_Monkey/gifs-de-cactus-5.gif");
+			background-position: center;
+			background-size: 150%;
+			background-repeat: no-repeat;
+			position: relative;
+			top: 410px;
+			left: 400px;
+/*			border: 2px solid black;*/
+			animation: move 4s linear infinite;
+		}
+		@keyframes move{
+			0%{
+				left: 980px;
+			}
+			100%{
+				left: -30px;
+			}
+		}
+		#score{
+			position: fixed;
+			top: 10px;
+			left: 20px;
+
+		}
+
+	</style>
+</head>
+<body>
+	<div class="game-cont">
+		<div class="monkey" onclick="addjump()"></div>
+		<div class="block"></div>
+	</div>
+<div id="score">0</div>
+	<script>
+
+		let score=0;
+		let scoreDive = document.getElementById("score");
+		scoreDive.innerHTML = 'Score '+score;
+
+		function addjump(){
+			let monkey = document.getElementsByClassName("monkey")[0];
+			if(monkey.getAttribute("class")=="monkey"){
+				monkey.setAttribute("class","monkey jump")
+				setTimeout(()=>{
+					monkey.setAttribute("class","monkey");
+				},1000)
+			}
+		}
+
+		let gameOver = setInterval(function(){
+			let monkey = document.getElementsByClassName('monkey')[0];
+			let block = document.getElementsByClassName("block")[0];
+			let monkeyDim = parseInt(window.getComputedStyle(monkey).getPropertyValue("top"));
+			let blockDim = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
+			scoreDive.innerHTML = score++;
+			if(blockDim>0 && blockDim<20 && monkeyDim>=120)
+			{
+				alert("GAME OVER" +score)
+			}
+
+		},10)
+	</script>
+
+
+</body>
+</html>
